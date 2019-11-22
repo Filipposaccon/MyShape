@@ -1,11 +1,14 @@
 package com.example.myshape;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -24,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     int red = 255;
     int green = 255;
     int blue = 255;
+    int [] colori={255,255,255};
     int alfa = 255;
     String textRed = "R: " + red;
     String textGreen = "G: " + green;
@@ -77,7 +81,13 @@ public class MainActivity extends AppCompatActivity {
         public void onStopTrackingTouch(SeekBar seekBar) {
         }
      };
-
+    private void sendMessage() {
+       // System.out.println("Messaggio:"+colori[0]+colori[1]+colori[2]);
+        Intent intent = new Intent("rgb");
+        // You can also include some extra data.
+        intent.putExtra("rgb", colori);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+    }
     private SeekBar.OnSeekBarChangeListener seekBarChangeListenerR
             = new SeekBar.OnSeekBarChangeListener() {
 
@@ -94,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
             else hex += "0" + Integer.toHexString(blue);
 
             red = progress;
+            colori[0]=red;
+          sendMessage();
             textRed = "R: " + red;
             tr.setText(textRed);
             mScreen.getBackground().setColorFilter(Color.parseColor(hex), PorterDuff.Mode.SRC_ATOP);
@@ -125,6 +137,8 @@ public class MainActivity extends AppCompatActivity {
             else hex += "0" + Integer.toHexString(blue);
 
             green = progress;
+            colori[1]=green;
+            sendMessage();
             textGreen = "G: " + green;
             tg.setText(textGreen);
             mScreen.getBackground().setColorFilter(Color.parseColor(hex), PorterDuff.Mode.SRC_ATOP);
@@ -155,6 +169,8 @@ public class MainActivity extends AppCompatActivity {
             else hex += "0" + Integer.toHexString(progress);
 
             blue = progress;
+            colori[2]=blue;
+            sendMessage();
             textBlue = "B: " + blue;
             tb.setText(textBlue);
             mScreen.getBackground().setColorFilter(Color.parseColor(hex), PorterDuff.Mode.SRC_ATOP);
