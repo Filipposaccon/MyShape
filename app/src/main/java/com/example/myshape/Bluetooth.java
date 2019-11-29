@@ -169,7 +169,7 @@ public class Bluetooth extends AppCompatActivity {
         try {
             System.out.println("Messaggio:"+colori[0]+"-"+colori[1]+"-"+colori[2]);
             writer = new OutputStreamWriter(btSocket.getOutputStream());
-            String messaggio= colori[0]+"-"+colori[1]+"-"+colori[2];
+            String messaggio= colori[0]+"-"+colori[1]+"-"+colori[2]+"|";
             writer.write(messaggio);
             writer.flush();
         } catch (IOException e) {
