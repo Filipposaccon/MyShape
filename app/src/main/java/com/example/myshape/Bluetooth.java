@@ -158,7 +158,6 @@ public class Bluetooth extends AppCompatActivity {
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            // Get extra data included in the Intent
             colori = intent.getIntArrayExtra("rgb");
             System.out.println(colori.toString());
             inviacolori();
